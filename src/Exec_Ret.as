@@ -1,12 +1,12 @@
 package {
 public class Exec_Ret {
   
-  public static const T_good = 0,
-                      T_jump = 1,
-                      T_jump_offset = 2,
-                      T_empty_line = 3,
-                      T_subroutine = 4,
-                      T_out        = 5;
+  public static const T_good : int = 0,
+                      T_jump : int = 1,
+                      T_jump_offset : int = 2,
+                      T_empty_line : int = 3,
+                      T_subroutine : int = 4,
+                      T_out        : int = 5;
   
   public var type  : int,
              value : int,

@@ -198,7 +198,7 @@ package {
       count = Math.min(tutorial_text[problem].length-1, count);
       text.text = tutorial_text[problem][count];
       if ( spac ) {
-        text.text += "\nSpace to continue...\n";
+        text.appendText("\nSpace to continue...\n");
       }
     }
   }

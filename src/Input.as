@@ -38,11 +38,11 @@ package  {
                          console_x : int = 320,
                          console_y : int = 230;
     public var focus : int;
-    public const Focus_main   = 0,
-                 Focus_desc   = 1,
-                 Focus_title  = 2,
-                 Focus_lrange = 3,
-                 Focus_urange = 4;
+    public const Focus_main   : int = 0,
+                 Focus_desc   : int = 1,
+                 Focus_title  : int = 2,
+                 Focus_lrange : int = 3,
+                 Focus_urange : int = 4;
     private var cursor : Bitmap;
     private var checkmark : Bitmap;
     private var compiler : Compiler;
@@ -51,6 +51,7 @@ package  {
     public var stage : Sprite;
 
     public function Input(s:Sprite) : void {
+      var i : int = 0;
       stage = s;
       focus = Focus_main;
       update_program = update_program_start;
@@ -67,7 +68,7 @@ package  {
       debug = new TextField();
       debug.x = 20; debug.y = 500;
       s.addChild(debug);
-      for ( var i : int = 0; i != console_h; ++ i ) {
+      for ( i = 0; i != console_h; ++ i ) {
         output.push( Util.Create_TextField() );
         output[i].x = console_x;
         output[i].y = console_y + i*Source.ft_y;
@@ -78,7 +79,7 @@ package  {
       inp_x = new Array();
       rem_x = new Array();
       inp_y = new Array();
-      for ( var i : int = 0; i != subrout_total; ++ i ) {
+      for ( i = 0; i != subrout_total; ++ i ) {
         inp_x.push(0);
         inp_y.push(0);
         rem_x.push(0);
@@ -191,14 +192,14 @@ package  {
         if ( key == Keyboard.BACKSPACE )
           txt.text = txt.text.substr(0, txt.text.length-1);
         else
-          txt.text += String.fromCharCode(key);
+          txt.appendText(String.fromCharCode(key));
         return;
       }
     
       if ( Saver.played_before == false ) {
         if ( timeup  < 0 ) {
           if ( key == Keyboard.SPACE ) {
-            spc_hit = 1;
+            spc_hit = true;
             timeup = timeup_tot;
             if ( Tutorial.count++ > total_loc ) {
               Saver.played_before = true;
@@ -213,9 +214,9 @@ package  {
             compiler.Compile(Saver.output_global[curr_problem]);
             compiler.Update(true);
             total_loc = compiler.R_Line_Tot();
-            spc_hit = 0;
+            spc_hit = false;
             speedup = -1;
-            esc_hit = 0;
+            esc_hit = false;
           }
         }
         return;
@@ -471,8 +472,9 @@ package  {
     }
     
     public function Update_Mouse_Click(mouse_x : int, mouse_y : int ) : void {
+      var i : int = 0;
       guide.Clear_Data();
-      for ( var i : int = 0; i != Guide.Out.length; ++ i ) {
+      for ( i = 0; i != Guide.Out.length; ++ i ) {
         var d : Guide_Data = Guide.Out[i];
         if ( Util.In_Range(d.hitx, d.hity, d.hitw, d.hith, mouse_x, mouse_y) ) {
           guide.Update_Data(i);
@@ -497,14 +499,14 @@ package  {
       
       // -- highilgght
       if ( Util.In_Range(317, 230, 176, 365, mouse_x, mouse_y) ) {
-        var ox : int = mouse_x - 317,
-            oy : int = mouse_y - 230;
-        ox /= 10;
-        oy /= Source.ft_y;
-        if ( oy >= output.length )
-          oy = output.length-1;
-        inp_x[curr_subrout] = Math.min(output[oy].length, ox);
-        inp_y[curr_subrout] = oy;
+        var ox2 : int = mouse_x - 317,
+            oy2 : int = mouse_y - 230;
+        ox2 /= 10;
+        oy2 /= Source.ft_y;
+        if ( oy2 >= output.length )
+          oy2 = output.length-1;
+        inp_x[curr_subrout] = Math.min(output[oy2].length, ox2);
+        inp_y[curr_subrout] = oy2;
         rem_x[curr_subrout] = 0;
         Refresh_Cursor();
         text_hi = true;
@@ -559,14 +561,14 @@ package  {
           Set_Subroutine(0);
           
           Apply_String_To_Output(Tutorial.tutorial_codes[curr_problem]);
-          for ( var i : int = 1; i != 6; ++ i ) {
+          for ( i = 1; i != 6; ++ i ) {
             Set_Subroutine(i);
             Apply_String_To_Output("");
           }
           compiler.Compile(Saver.output_global[curr_problem]);
           total_loc = compiler.R_Line_Tot();
         } else {
-          for ( var i : int = 0; i != Tutorial.tutorial_hints[curr_problem].length; ++ i ) {
+          for ( i = 0; i != Tutorial.tutorial_hints[curr_problem].length; ++ i ) {
             compiler.Output_User(Tutorial.tutorial_hints[curr_problem][i]);
           }
         }
@@ -612,7 +614,7 @@ package  {
       
       var it : int = text.search(find);
       if ( it == -1 ) return "";
-      while ( text.length != it && text.charAt(++it) != ':' );
+      while ( text.length != it && text.charAt(++it) != ':' ) {}
       if ( it == text.length ) return "";
       while ( text.length != it && text.charAt(++it) != ':' ) {
         if ( text.charAt(it) == ';' ) {
@@ -648,9 +650,9 @@ package  {
     public function Drop_Key(key:uint) : void {
       
       if ( Keyboard.ESCAPE )
-        esc_hit = 0;
+        esc_hit = false;
       if ( Keyboard.SPACE )
-        spc_hit = 0;
+        spc_hit = false;
       // -- drop modifiers
       switch ( key ) {
         case Keyboard.SHIFT:
@@ -683,8 +685,8 @@ package  {
         } else {
           compiler.Update(true);
           speedup = -1;
-          spc_hit = 0;
-          esc_hit = 0;
+          spc_hit = false;
+          esc_hit = false;
           timeup = timeup_tot;
         }
         return;

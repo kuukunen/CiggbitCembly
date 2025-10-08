@@ -7,7 +7,7 @@ package {
     
     private static var highlights : Array;
     
-    public static function init(s:Stage) {
+    public static function init(s:Stage) : void {
       highlights = new Array();
       for ( var i : int = 0; i != Input.console_w*Input.console_h+20; ++ i ) {
         highlights.push(new Img_Cursor() as Bitmap);
@@ -19,7 +19,7 @@ package {
     
     public static var text_selected : String;
     
-    public static function Update_Highlight(lx:int, ly:int, ux:int, uy:int, str:Array) { 
+    public static function Update_Highlight(lx:int, ly:int, ux:int, uy:int, str:Array) : void { 
       // if i need to reverse
       return;
       var dir_y : Boolean = false,
@@ -36,12 +36,13 @@ package {
         ux ^= lx;
         dir_x = true;
       }*/
-      for ( var i : int = 0; i != highlights.length; ++ i )
+      var i : int = 0;
+      for ( i = 0; i != highlights.length; ++ i )
         highlights[i].visible = false;
       var tot : int = 0;
       var l : int = ly*(Input.console_w)+lx,
           h : int = uy*(Input.console_w)+ux;
-      for ( var i : int = l; i != h; ++ i ) {
+      for ( i = l; i != h; ++ i ) {
         var c_x : int =    (i%Input.console_w),
             c_y : int = int(i/Input.console_w);
         highlights[tot].x = 320 + c_x*10;

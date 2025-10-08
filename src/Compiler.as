@@ -393,6 +393,7 @@ public class Compiler {
   private var brk_hit : Boolean = false;
 
   public function Update(vup:Boolean):void {
+    var i : int = 0;
     if ( running ) {
       if ( line_to_exec == -99 ) {
         out.text = "Running\n"+
@@ -409,7 +410,7 @@ public class Compiler {
       if ( line_to_exec >= program.R_LOC(sr_to_exec) )
         line_to_exec = 0;
       if ( !brk_hit ) {
-        for ( var i : int = 0; i != breakpoints.length; ++ i ) {
+        for ( i = 0; i != breakpoints.length; ++ i ) {
           if ( breakpoints[i][0] == sr_to_exec && breakpoints[i][1] == line_to_exec ) {
             input.Set_Pause();
             brk_hit = true;
@@ -486,7 +487,7 @@ public class Compiler {
           QuickKong.stats.submit(problem.name + " NoMod", program.R_Tot_Style());
         Saver.Save();
         var count : int = 0;
-        for ( var i : int = 0; i != Saver.levels_complete.length; ++ i )
+        for ( i = 0; i != Saver.levels_complete.length; ++ i )
           if ( Saver.levels_complete[i] == true ) ++ count;
         snd_success.play();
         QuickKong.stats.submit("Levels Complete", count);
@@ -523,8 +524,7 @@ public class Compiler {
   public function Stop_Running(change_out:Boolean = true) : void {
     running = false;
     Saver.output_global[input.curr_problem] = code_copy;
-    input.Apply_String_To_Output(Saver.output_global[input.curr_problem]
-                                                           [sr_to_exec]);
+    input.Apply_String_To_Output(Saver.output_global[input.curr_problem][sr_to_exec]);
     Clear_Breakpoints();
     input.Clear_Speed();
     problem.output_it = 0;
@@ -564,7 +564,7 @@ public class Compiler {
   public function Clear_Error_Line() : void {
     eline.y = -35;
   }
-  public function Inform_Input_Change(line:int, sr:int, code:Array) {
+  public function Inform_Input_Change(line:int, sr:int, code:Array) : void {
     // grab useful information
     if ( code == null ) {
       input.Change_Line("", line, sr);
@@ -606,10 +606,11 @@ public class Compiler {
   
   public function Refresh_Breakpoints() : void {
     
-    for ( var i : int = 0; i != breakpoint_imgs.length; ++ i ) {
+    var i : int = 0;
+    for ( i = 0; i != breakpoint_imgs.length; ++ i ) {
       breakpoint_imgs[i].visible = false;
     }
-    for ( var i : int = 0; i != breakpoints.length; ++ i ) {
+    for ( i = 0; i != breakpoints.length; ++ i ) {
       if ( breakpoints[i][0] == sr_to_exec ) {
         breakpoint_imgs[i].visible = true;
         breakpoint_imgs[i].y = 232 + breakpoints[i][1]*Source.ft_y;

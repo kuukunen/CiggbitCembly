@@ -94,6 +94,7 @@ public class Program {
     if ( style_counts ) {
       t_style += Symbol.Instructions[instr.R_Value()].R_Style();
     }
+    var t : int = 0;
     // -- execute command
     switch ( instr.R_Value() ) {
       case Symbol.I_ADD:
@@ -146,10 +147,10 @@ public class Program {
       case Symbol.I_RETR:
       
       case Symbol.I_RET:
-        var sr : int = call_stack.Pop();
-        var loc : int = sr%1000;
-        sr = int(sr/1000);
-        return new Exec_Ret(Exec_Ret.T_subroutine, loc, sr);
+        var sr2 : int = call_stack.Pop();
+        var loc2 : int = sr2%1000;
+        sr2 = int(sr2/1000);
+        return new Exec_Ret(Exec_Ret.T_subroutine, loc2, sr2);
       break;
       case Symbol.I_SEX:
         switch ( registers[sleft.R_Value()] ) {
@@ -259,7 +260,7 @@ public class Program {
             memory[sleft.R_Value()] = stack.Pop();;
           break;
           case Symbol.MemoryReg:            
-          var t : int = registers[sleft.R_Value()];
+          t = registers[sleft.R_Value()];
           if ( t < 0 || t >= memory.length ) {
             error = Error_Code.Out_Of_Range;
             error_det = "Tried to access memory at\n" +
@@ -278,7 +279,7 @@ public class Program {
       case Symbol.I_MOD:
         mod_used = true;
         // get values
-        var t : int = R_Value(sleft);
+        t = R_Value(sleft);
         var page   : int = (t >> (29))&0x07,
             nloc   : int = (t >> (4*6))&0x1F,
             lhtype : int = (t >> (4*5))&0x0F,
@@ -311,13 +312,13 @@ public class Program {
         if ( ninstr != 0xFF ) { // erase line?
           code[page][nloc][0].Set_Value(ninstr);
           code[page][nloc][0].Set_Type (Symbol.Command);
-          var instruction : Instruction = Symbol.Instructions[ninstr];
-          if ( instruction.R_Params() > 0 ) {
+          var instruction2 : Instruction = Symbol.Instructions[ninstr];
+          if ( instruction2.R_Params() > 0 ) {
             var lhsym : Symbol = new Symbol("");
             lhsym.Set_Value(lhval);
             lhsym.Set_Type (lhtype );
             code[page][nloc].push(lhsym);
-            if ( instruction.R_Params() > 1 ) {
+            if ( instruction2.R_Params() > 1 ) {
               var rhsym : Symbol = new Symbol("");
               rhsym.Set_Value(rhval);
               rhsym.Set_Type(rhtype );

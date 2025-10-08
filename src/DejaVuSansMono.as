@@ -17,7 +17,7 @@ package {
            embedAsCFF = false)] private static const _Font:Class;
     public static const name:String = "_DejaVuSansMono_";
     public function DejaVuSansMono() {}
-    static public function Init() {
+    static public function Init() : void {
       standard = new CSMSettings(10, 0.6, -0.1);
       style = new TextFormat(DejaVuSansMono.name, Source.ft_x);
       standard_table = new Array(standard);

@@ -150,7 +150,7 @@ package {
       ciggtit_fadein = 60*3;
       ciggtit_fadeout = 60*3;
       ciggbit = new CiggBit();
-      for ( var i : int = 0; i != ciggbit.Ciggs.length; ++ i ) {
+      for ( i = 0; i != ciggbit.Ciggs.length; ++ i ) {
         addChild(ciggbit.Ciggs[i]);
         ciggbit.Ciggs[i].width  = 400;
         ciggbit.Ciggs[i].height = 400;
@@ -166,7 +166,7 @@ package {
     private var ciggbit : CiggBit;
     private var title_it : int;
     private var gametit_fadein : int,
-                gametit_fadeout;
+                gametit_fadeout : int;
     private var ciggtit_fadein : int,
                 ciggtit_fadeout : int;
     private var timer : int;
@@ -208,7 +208,7 @@ package {
             for ( i = 0; i != KeyConfig.keys.length; ++ i )
               controls_text[i].visible = false;
             if ( Saver.played_before == false && slide_it == 1 ) {
-              for ( var i : int = 0; i != slides.length; ++ i )
+              for ( i = 0; i != slides.length; ++ i )
                 slides[i].visible = false;
               Tutorial.Initialize(input, this);
               input.guide = new Guide(this);
@@ -277,6 +277,7 @@ package {
         input.Drop_Key(e.keyCode);
     }
     private function Update(e:Event) : void {
+      var i : int = 0;
       if ( title_it > 0 ) {
         if ( ciggtit_fadeout != -500 ) {
           ciggbit.Ciggs[R_Cigg_It()].visible = false;
@@ -295,7 +296,7 @@ package {
           }
           if ( ciggtit_fadeout <= 0 ) {
             if ( --ciggtit_fadeout <= -60 ) {              
-              for ( var i : int = 0; i != ciggbit.Ciggs.length; ++ i )
+              for ( i = 0; i != ciggbit.Ciggs.length; ++ i )
                 removeChild(ciggbit.Ciggs[i]);
               removeChild(title_text);
               ciggtit_fadeout = -500;
@@ -326,7 +327,7 @@ package {
       }
       else if ( slide_it == 0 ) {
         // reassign key text
-        for ( var i : int = 0; i != KeyConfig.keys.length; ++ i ) {
+        for ( i = 0; i != KeyConfig.keys.length; ++ i ) {
           var key : Key = KeyConfig.keys[i];
           controls_text[i].text = "";
           if ( key_config <= i && key_config != -1 ) break;
