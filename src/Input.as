@@ -23,6 +23,7 @@ package  {
     private var custom_prob : Problem;
     private var shift_hit : Boolean;
     private var ctrl_hit : Boolean;
+    private var local_clipboard : String = null;
     private var inp_x : Array,
                 inp_y : Array,
                 rem_x : Array;
@@ -388,6 +389,7 @@ package  {
     public function Copy_To_Clipboard() : void {
       var txt : String = Output_To_String();
       ctrl_hit = false;
+      local_clipboard = txt;
       Clipboard.generalClipboard.setData(ClipboardFormats.TEXT_FORMAT, txt, true);
       refresh_hint = 300;
       compiler.Notify_User("Program copied to Clipboard!\n" +
@@ -400,10 +402,12 @@ package  {
       inp_x[curr_subrout] = 0;
       rem_x[curr_subrout] = 0;
       inp_y[curr_subrout] = 0;
-      Apply_String_To_Output(
-        String(Clipboard.generalClipboard.getData(
-                          ClipboardFormats.TEXT_FORMAT))
-      );
+      var clip : Object = Clipboard.generalClipboard.getData(ClipboardFormats.TEXT_FORMAT);
+      if ( clip ) {
+        Apply_String_To_Output(String(clip));
+      } else if ( local_clipboard ) {
+        Apply_String_To_Output(local_clipboard);
+      }
     }
     
     public function Output_To_String() : String {

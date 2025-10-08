@@ -52,6 +52,12 @@ package {
       saved_file.data.key_help_c  = KeyConfig.help.ctrl;
       saved_file.data.key_help_k  = KeyConfig.help.key;
       saved_file.data.key_help_s  = KeyConfig.help.shift;
+      saved_file.data.key_copy_c  = KeyConfig.copy.ctrl;
+      saved_file.data.key_copy_k  = KeyConfig.copy.key;
+      saved_file.data.key_copy_s  = KeyConfig.copy.shift;
+      saved_file.data.key_paste_c  = KeyConfig.paste.ctrl;
+      saved_file.data.key_paste_k  = KeyConfig.paste.key;
+      saved_file.data.key_paste_s  = KeyConfig.paste.shift;
       // -- flush/close
       saved_file.flush();
       saved_file.close();
@@ -100,8 +106,13 @@ package {
       KeyConfig.prev_prob.key     =  saved_file.data.key_prev_k;
       KeyConfig.prev_prob.shift   =  saved_file.data.key_prev_s;
       KeyConfig.help.ctrl         =  saved_file.data.key_help_c;
-      KeyConfig.help.key          =  saved_file.data.key_help_k;
-      KeyConfig.help.shift        =  saved_file.data.key_help_s;
+      KeyConfig.help.key          =  saved_file.data.key_help_s;
+      KeyConfig.copy.ctrl         =  saved_file.data.key_copy_c;
+      KeyConfig.copy.key          =  saved_file.data.key_copy_k;
+      KeyConfig.copy.shift        =  saved_file.data.key_copy_s;
+      KeyConfig.paste.ctrl         =  saved_file.data.key_paste_c;
+      KeyConfig.paste.key          =  saved_file.data.key_paste_k;
+      KeyConfig.paste.shift        =  saved_file.data.key_paste_s;
       output_global = saved_file.data.output_global;
       if ( saved_file.data.ticks != null ) {
         ticks = saved_file.data.ticks;

@@ -535,8 +535,8 @@ public class Compiler {
       out.text = "Ready!\n\n" +
                  Util.R_Key_String(KeyConfig.help, 15) +"= help\n"+
                  Util.R_Key_String(KeyConfig.start, 15) +  "= Start program\n"+
-                 "CTRL C         = Copy  program\n"+
-                 "CTRL V         = Paste program\n"+
+                 Util.R_Key_String(KeyConfig.copy, 15) +  "= Copy  program\n"+
+                 Util.R_Key_String(KeyConfig.paste, 15) +  "= Paste program\n"+
                  Util.R_Key_String(KeyConfig.next_prob, 15) + "= next\n"+
                  Util.R_Key_String(KeyConfig.prev_prob, 15) + "= prev\n";
     }

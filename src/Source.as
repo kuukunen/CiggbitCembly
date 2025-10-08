@@ -191,10 +191,16 @@ package {
         key_ctrl = true;
       }
       if ( slide_it == slides.length ) {
+        if ( input.R_Running() )
+          return;
         input.Key_Input(e.keyCode);
+        if ( Util.R_Key_Hit(KeyConfig.copy, e.keyCode, key_shift, key_ctrl) ) {
+          Bullshit_Copy(new Event("useless"));
+        }
+        if ( Util.R_Key_Hit(KeyConfig.paste, e.keyCode, key_shift, key_ctrl) ) {
+          Bullshit_Paste(new Event("useless"));
+        }
         if ( Util.R_Key_Hit(KeyConfig.help, e.keyCode, key_shift, key_ctrl) ) {
-          if ( input.R_Running() )
-            return;
           slide_it = 0;
           input.Clear_Guide();
           for ( i = slides.length-1; i != -1; -- i ) {

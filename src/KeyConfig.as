@@ -13,7 +13,9 @@ public class KeyConfig {
                     next_prob   : Key,
                     prev_prob   : Key,
                     help        : Key,
-                    start       : Key;
+                    start       : Key,
+                    copy        : Key,
+                    paste       : Key;
   public static var keys        : Array;
   // run at first, but load should override
   public static function Setup_Keys() : void {
@@ -27,8 +29,10 @@ public class KeyConfig {
     prev_prob   = new Key(Keyboard.PERIOD, true, false);
     help        = new Key(Keyboard.BACKSLASH, false, false);
     start       = new Key(Keyboard.NUMBER_5, true, false);
+    copy        = new Key(Keyboard.C, false, true);
+    paste       = new Key(Keyboard.V, false, true);
     keys = new Array(speedup_2x, speedup_32x, pause,
                 next_page, prev_page, next_prob, prev_prob,
-                help, start);
+                help, start, copy, paste);
   }
 }}
