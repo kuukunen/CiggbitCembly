@@ -1,2 +1,7 @@
 An assembly puzzle game based off the 8086, written in AS3.
 play: http://www.kongregate.com/games/hercludes/ciggbitcembly
+
+This fork has local clipboard fallback: If the system clipboard is not accessible, it will fallback to local clipboard so that you can at least copy & paste inside the game.
+
+On Windows use Flex SDK and Compile with:
+mxmlc.bat -output CiggbitCembly.swf src\Source.as
